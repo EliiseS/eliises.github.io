@@ -79,6 +79,33 @@ if (!doNotTrack) {
     <div class="content-cards">
       <div class="container-fluid filtr-container post-cards" id="post-cards">
         
+          <div class="filtr-item" data-category='powershell,devcontainer'>
+  <a href="eliises.github.io/posts/powershell-devcontainer/powershell-devcontainer/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/installation/hero.svg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">PowerShell Core as default shell on a Debian devcontainer</h5>
+        <p class="card-text post-summary">Here we&rsquo;ll cover setting up powershell on a dev container with a debian:buster baseimage.
+At the bottom of this article you can also find the full devcontainer.json and dockerimage, which you can skip to.
+Credit to: https://www.phillipsj.net/posts/powershell-as-default-shell-on-ubuntu/
+Installing Powershell 7 Here&rsquo;s the PowerShell install snippet from our debian dockerfile.
+# Install PowerShell 7RUN wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb \  &amp;&amp; dpkg -i packages-microsoft-prod.deb \  &amp;&amp; rm packages-microsoft-prod.deb \  &amp;&amp; apt-get update \  &amp;&amp; apt-get install -y powershell \ Set PowerShell as default shell Next to set powershell as our default shell we must find it in the list of available shells with:</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">June 8, 2020</span>
+        <a
+        href="eliises.github.io/posts/powershell-devcontainer/powershell-devcontainer/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+        
         
       </div>
       
