@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Series on Eliise Seling</title>
+    <link>https://eliises.github.io/series/</link>
+    <description>Recent content in Series on Eliise Seling</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 08 Jun 2020 08:06:25 +0600</lastBuildDate>
+    
+	<atom:link href="https://eliises.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>devcontainer</title>
+      <link>https://eliises.github.io/series/devcontainer/</link>
+      <pubDate>Mon, 08 Jun 2020 08:06:25 +0600</pubDate>
+      
+      <guid>https://eliises.github.io/series/devcontainer/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
