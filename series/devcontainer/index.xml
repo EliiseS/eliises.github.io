@@ -5,7 +5,7 @@
     <link>https://eliises.github.io/series/devcontainer/</link>
     <description>Recent content in devcontainer on Eliise Seling</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 08 Jun 2020 08:06:25 +0600</lastBuildDate>
+    <lastBuildDate>Wed, 15 Apr 2020 11:35:28 +0000</lastBuildDate>
     
 	<atom:link href="https://eliises.github.io/series/devcontainer/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,11 +13,10 @@
     <item>
       <title>PowerShell Core as default shell on a Debian devcontainer</title>
       <link>https://eliises.github.io/posts/2020-06/powershell-devcontainer/</link>
-      <pubDate>Mon, 08 Jun 2020 08:06:25 +0600</pubDate>
+      <pubDate>Wed, 15 Apr 2020 11:35:28 +0000</pubDate>
       
       <guid>https://eliises.github.io/posts/2020-06/powershell-devcontainer/</guid>
-      <description>Here we&amp;rsquo;ll cover setting up powershell on a dev container with a debian:buster baseimage.
-At the bottom of this article you can also find the full devcontainer.</description>
+      <description>Here we&amp;rsquo;ll cover setting up powershell on a dev container with a debian:buster baseimage.</description>
     </item>
     
   </channel>

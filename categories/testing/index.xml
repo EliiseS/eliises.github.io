@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Eliise Seling</title>
-    <link>https://eliises.github.io/</link>
-    <description>Recent content on Eliise Seling</description>
+    <title>testing on Eliise Seling</title>
+    <link>https://eliises.github.io/categories/testing/</link>
+    <description>Recent content in testing on Eliise Seling</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 06 Jun 2020 08:06:25 +0600</lastBuildDate>
     
-	<atom:link href="https://eliises.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://eliises.github.io/categories/testing/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,15 +17,6 @@
       
       <guid>https://eliises.github.io/posts/2020-06/testing-terraform-pester/</guid>
       <description>In this post I&amp;rsquo;d like show how you can create integrations tests for terraform with Pester, a powershell testing framework.</description>
-    </item>
-    
-    <item>
-      <title>PowerShell Core as default shell on a Debian devcontainer</title>
-      <link>https://eliises.github.io/posts/2020-06/powershell-devcontainer/</link>
-      <pubDate>Wed, 15 Apr 2020 11:35:28 +0000</pubDate>
-      
-      <guid>https://eliises.github.io/posts/2020-06/powershell-devcontainer/</guid>
-      <description>Here we&amp;rsquo;ll cover setting up powershell on a dev container with a debian:buster baseimage.</description>
     </item>
     
   </channel>
