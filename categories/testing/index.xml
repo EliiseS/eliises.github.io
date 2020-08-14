@@ -12,10 +12,10 @@
     
     <item>
       <title>Testing terraform with Pester</title>
-      <link>https://eliises.github.io/posts/2020-06/testing-terraform-pester/</link>
+      <link>https://eliises.github.io/posts/testing-terraform-pester/</link>
       <pubDate>Sat, 06 Jun 2020 08:06:25 +0600</pubDate>
       
-      <guid>https://eliises.github.io/posts/2020-06/testing-terraform-pester/</guid>
+      <guid>https://eliises.github.io/posts/testing-terraform-pester/</guid>
       <description>In this post I&amp;rsquo;d like show how you can create integrations tests for terraform with Pester, a powershell testing framework.</description>
     </item>
     

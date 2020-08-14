@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
+  <meta name="author" content="Eliise Seling">
+  <meta name="description" content="Introduction In an effort to save someone the pain of having to go through what I did when trying to get debugging to work on the Terraform Azure Devops Provider acceptance tests, here&rsquo;s the solution.">
+  
+  <meta property="og:title" content="Debug Terraform (Azure Devops) Provider with VSCode" />
+<meta property="og:description" content="Introduction In an effort to save someone the pain of having to go through what I did when trying to get debugging to work on the Terraform Azure Devops Provider acceptance tests, here&rsquo;s the solution." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://eliises.github.io/posts/debug-tf-vscode/" />
+<meta property="article:published_time" content="2020-07-01T16:30:46+00:00" />
+<meta property="article:modified_time" content="2020-07-20T09:43:36+00:00" />
+
+
+  <title>
+  
+       Debug Terraform (Azure Devops) Provider with VSCode | Eliise Seling 
+  
+  </title>
+
+  <link rel="canonical" href="https://eliises.github.io/posts/debug-tf-vscode/">
+
+  
+  
+
+  
+  <link href="https://eliises.github.io/vendors/fontawesome-free-5.14.0-web/css/all.min.css" rel="stylesheet">
+
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:300,400,500,600">
+  <link href="https://eliises.github.io/css/font.css" rel="stylesheet"> 
+    
+  
+  <link href="https://eliises.github.io/css/vendors/bootstrap4/bootstrap.min.css" rel="stylesheet">
+  <link href="https://eliises.github.io/css/vendors-extensions/mdb/mdb.min.css" rel="stylesheet"> 
+  <link href="https://eliises.github.io/css/vendors/mdb/style.min.css" rel="stylesheet"> 
+  <link href="https://eliises.github.io/css/main.css" rel="stylesheet">
+
+
+  
+  <link rel="shortcut icon"
+  
+      href="https://eliises.github.io/img/zheng.png"
+  
+  >
+
+
+  
+  
+
+  <style type="text/css">
+      @media (min-width: 800px) and (max-width: 850px) {
+              .navbar:not(.top-nav-collapse) {
+                  background: #1C2331!important;
+              }
+          }
+  </style>
+
+
+  
+    
+    <link rel="stylesheet" href="https://eliises.github.io/js/vendors/katex/katex.min.css">
+  
+  
+
+  
+    
+    <link rel="stylesheet" href="https://eliises.github.io/css/vendors/highlight/github-gist.css">
+  
+
+</head>
+
+  <body class="bg-light" data-spy="scroll" data-target="#page-scrollspy" data-offset="90">
+  
+    
+    
+
+    
+      
+
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="https://eliises.github.io">
+          
+        <img class="avatar" src="https://eliises.github.io/img/zheng.png" style="width: 40px!important;height: auto;"  class="d-inline-block align-top" alt="" >
+        
+        <strong> Eliise Seling</strong>
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        
+        <ul class="navbar-nav mr-auto ">
+          <li class="nav-item ">
+            <a class="nav-link" href="https://eliises.github.io">Home</a>
+          </li>
+             
+            <li class="nav-item ">
+              <a class="nav-link" href="https://eliises.github.io/posts/" >Posts  </a>
+            </li>
+          
+             
+            <li class="nav-item ">
+              <a class="nav-link" href="https://eliises.github.io/about/" >About  </a>
+            </li>
+          
+          
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+  
+ 
+      
+ 
+
+
+
+
+
+
+<div id="site-header" class="carousel slide carousel-fade" data-ride="carousel" style="height: 18rem;" >  
+
+  
+  
+  
+
+  
+  <div class="carousel-inner" role="listbox">
+    
+      
+
+        
+        <div class="carousel-item active">
+          <div class="view" style="background-image: url('https://eliises.github.io/img/header-slides/raw_1515691746.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+            
+            <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+              
+              
+              
+
+            </div>
+            
+
+          </div>
+        </div>
+        
+      
+    
+      
+
+        
+        <div class="carousel-item">
+          <div class="view" style="background-image: url('https://eliises.github.io/img/header-slides//raw_1515847341.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+            
+            <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+            
+
+            </div>
+            
+
+          </div>
+        </div>
+        
+      
+    
+
+  
+  </div>
+  
+
+  
+  <div class="carousel-content text-center white-text wow fadeIn">
+    <div class="row mx-0 headfont mt-3 pt-4">
+      
+      <div class="col-12 col-sm-5 align-middle">
+        <a href="https://eliises.github.io">
+          
+            <img class="pull-right avatar avatar-md" src="https://eliises.github.io/images/avatar.jpg" alt="" >
+          
+        </a>
+      </div>
+      
+      <div class="col-12 col-sm-7 text-left pl-2">
+        <a href="https://eliises.github.io">
+          <h1 class="mb-2 h1" style="font-weight: 300;" >
+            <strong>Eliise Seling</strong>
+          </h1>
+        </a>
+        
+
+         
+        <div class="mt-2" style="font-size: 1rem; color: white;">
+          
+  <a href="//github.com/eliises" target="_blank" rel="noopener me"><i class="fab fa-github pr-1" aria-hidden="true"></i></a>    
+
+
+
+
+
+
+
+  <a href="//linkedin.com/in/eliises" target="_blank" rel="noopener me"><i class="fab fa-linkedin pr-1" aria-hidden="true"></i></a>
+
+
+
+
+
+  <a href="//twitter.com/eliises" target="_blank" rel="noopener me"><i class="fab fa-twitter pr-1" aria-hidden="true"></i></a>
+
+
+
+
+
+
+
+  <a href="//dev.to/eliises" target="_blank" rel="noopener me"><i class="fab fa-dev pr-1" aria-hidden="true"></i></a>
+
+
+
+
+
+
+
+  <a href="mailto:selingeliise@gmail.com"><i class="far fa-envelope-open pr-1" aria-hidden="true"></i></a>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  
+  
+  
+
+</div>
+  
+    
+
+    
+  
+  <main class="post-main-wrapper">
+    
+    
+    <div class="row">
+
+      
+
+      
+      <div class="col-md-10">
+      
+
+        
+        <div class="z-depth-1 post-wrapper white-bg single-post dont-break-out">
+
+          <div class="post-header text-center" >
+  <ul class="post-meta li-x">
+    
+  
+    <li><a href="https://eliises.github.io/categories/terraform-testing-go-vscode"><i class="fas fa-folder-open pr-1" aria-hidden="true"></i> terraform, testing, go, vscode </a></li>
+  
+  
+  
+  </ul>
+  <div class="px-4 post-heading">Debug Terraform (Azure Devops) Provider with VSCode</div>
+<ul class="post-meta li-x mt-1">
+  
+    <li>Jul 1, 2020</li>
+  
+
+  
+    <li class="middot"></li>
+    <li>2 minute read</li>
+  
+</ul>
+
+
+  
+</div>
+
+
+          <div class="post-content markdown">
+            <h1 id="introduction">Introduction</h1>
+<p>In an effort to save someone the pain of having to go through what I did when trying to get debugging to work on the <a href="https://github.com/terraform-providers/terraform-provider-azuredevops">Terraform Azure Devops Provider</a> acceptance tests, here&rsquo;s the solution.</p>
+<p>Prior to starting I was already able to run, debug the unit tests and run the acceptance tests. This article is only about enabling debugging for terraform acceptance tests.</p>
+<p><strong>Update</strong>: Checkout the <a href="#issues">Issues section</a> for how to enable codelens debugging.</p>
+<h1 id="environment">Environment</h1>
+<ul>
+<li><a href="https://code.visualstudio.com/">VSCode</a></li>
+<li>A terraform provider</li>
+<li><a href="https://golang.org/">Golang</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=golang.Go">Golang extension</a> setup and configured</li>
+</ul>
+<p>The environment is also set up in the <a href="https://github.com/terraform-providers/terraform-provider-azuredevops/tree/master/.devcontainer">Azure Devops devcontainer</a>. The code below can also be found in the repository.</p>
+<h1 id="set-up">Set up</h1>
+<p>Add the <code>launch.json</code> and <code>.env</code> below. Edit the <code>.env</code> file as needed for your terraform provider secrets.</p>
+<blockquote>
+<p>NB: The <code>buildFlags</code> attribute was only needed for Azure Devops provider, for example, the Databricks provider work without it.</p>
+</blockquote>
+<p><code>launch.json</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;0.2.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;configurations&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Launch a test&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;go&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="s2">&#34;launch&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;mode&#34;</span><span class="p">:</span> <span class="s2">&#34;auto&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;program&#34;</span><span class="p">:</span> <span class="s2">&#34;${file}&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;-test.v&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;-test.run&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;^${selectedText}$&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;env&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;TF_ACC&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+            <span class="p">},</span>            
+            <span class="nt">&#34;buildFlags&#34;</span><span class="p">:</span> <span class="s2">&#34;-v -tags=all&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;showLog&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&#34;envFile&#34;</span><span class="p">:</span> <span class="s2">&#34;${workspaceFolder}/.env&#34;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div><p><code>.env</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">AZDO_PERSONAL_ACCESS_TOKEN=&lt;your_token&gt;</span>
+<span class="err">AZDO_ORG_SERVICE_URL=&lt;your_azdo_org&gt;</span>
+</code></pre></div><p>Make sure <code>Launch a test</code> is selected in the VSCode debug window</p>
+<p><img src="https://eliises.github.io/images/debug-tf-vscode/launch-test.png" alt="Launch debug"></p>
+<h1 id="debug-a-test">Debug a test</h1>
+<p>Highlight the name of the test you wish to run test in the test file and press <code>F5</code> or select <code>Start debugging</code>.</p>
+<h1 id="debugging-in-action">Debugging in action</h1>
+<p><img src="https://eliises.github.io/images/debug-tf-vscode/run-tf-debug.gif" alt="Run debug test"></p>
+<h1 id="issues">Issues</h1>
+<p><del>The only issue with this solution is that you have to highlight the test name and press <code>F5</code> instead of being able to just select the <code>debug test</code> option above each test in VSCode. You&rsquo;re able to run non-integration tests via that option and run all tests via the corresponding <code>run test</code> option.</del></p>
+<p><img src="https://eliises.github.io/images/debug-tf-vscode/debug-test.png" alt="Debug test"></p>
+<p><del>I&rsquo;d love it if anyone could share a solution where they&rsquo;ve got it to work with that.</del></p>
+<h2 id="fixed-enable-codelens-debugging">Fixed: Enable codelens debugging</h2>
+<p>The missing piece to enable codelens debugging is to add the below flags to <code>go.testFlags</code> in <code>settings.json</code></p>
+<h4 id="settingsjson"><strong><code>settings.json</code></strong></h4>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;go.testFlags&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&#34;-v&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;-tags=all&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;-args&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;-test.v&#34;</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+</code></pre></div><p>Huge thanks to <a href="https://twitter.com/tmeckel3">Thomas Meckel</a> for figuring this out!</p>
+<h1 id="credit">Credit</h1>
+<p>Inspired by <a href="https://blog.gripdev.xyz/2019/09/12/easily-debugging-terraform-provider-for-azure-in-vscode/">https://blog.gripdev.xyz/2019/09/12/easily-debugging-terraform-provider-for-azure-in-vscode/</a></p>
+
+          </div>
+
+          
+          <div class="row">
+            <div class="col-md-8">
+            
+            </div>
+            
+          </div>
+          
+
+          
+          <div class="row pt-3">
+            <div class="col-md-6">
+              
+                <a href=https://eliises.github.io/posts/testing-terraform-pester/ class="post-meta">Previous
+                  <div class="pt-2 pb-5 d-flex">
+                    <i class="fas fa-angle-left text-grey font-weight-bold mr-2 active-color"></i>
+                    <span>Testing terraform with Pester</span>
+                  </div>
+                </a>
+              
+            </div>
+            
+            <div class="col-md-6 text-right" >
+              
+                <a href=https://eliises.github.io/posts/dockerizing-devops/ class="post-meta">Next
+                  <div class="pt-2 pb-5 flex-reverse">
+                    <i class="fas fa-angle-right text-grey font-weight-bold ml-2 active-color"></i>
+                    <span>Dockerizing DevOps</span>
+                  </div>
+                </a>
+              
+            </div>
+          </div>
+
+          
+
+        </div>
+        
+
+      </div>
+      
+
+      
+	
+	
+	
+	
+		
+		
+		
+	
+
+		
+		<div class="col-md-2 pl-0">
+
+			
+			<div id="page-scrollspy" class="toc-nav">
+				
+				<ul class="nav nav-pills ml-0">
+					
+					<li class="nav-item pb-3 text-center">
+						<span class="font-weight-bold mb-2">- CATALOG - </span>
+					</li>
+
+					
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#introduction">
+												 Introduction
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#environment">
+												 Environment
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#set-up">
+												 Set up
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#debug-a-test">
+												 Debug a test
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#debugging-in-action">
+												 Debugging in action
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#issues">
+												 Issues
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#fixed-enable-codelens-debugging">
+												 Fixed: Enable codelens debugging
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#settingsjson">
+												 settings.json
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#credit">
+												 Credit
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+
+				</ul>
+			</div>
+			
+
+		</div>
+		
+	
+
+    </div>
+    
+
+
+  </main>
+  
+
+
+    
+    
+
+<footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+
+  
+  <div class="pb-2 mt-5 pt-5">
+    
+  <a href="//github.com/eliises" target="_blank" rel="noopener me"><i class="fab fa-github pr-1" aria-hidden="true"></i></a>    
+
+
+
+
+
+
+
+  <a href="//linkedin.com/in/eliises" target="_blank" rel="noopener me"><i class="fab fa-linkedin pr-1" aria-hidden="true"></i></a>
+
+
+
+
+
+  <a href="//twitter.com/eliises" target="_blank" rel="noopener me"><i class="fab fa-twitter pr-1" aria-hidden="true"></i></a>
+
+
+
+
+
+
+
+  <a href="//dev.to/eliises" target="_blank" rel="noopener me"><i class="fab fa-dev pr-1" aria-hidden="true"></i></a>
+
+
+
+
+
+
+
+  <a href="mailto:selingeliise@gmail.com"><i class="far fa-envelope-open pr-1" aria-hidden="true"></i></a>
+
+
+
+
+  </div>
+  
+
+  
+  <div class="copyright py-4">
+    <span>  2016 - 2020 &copy; | Theme <a href='https://github.com/EliiseS/AllinOne' target="_blank">AllinOne</a> </span>
+  </div>
+  
+
+</footer>
+
+
+    
+
+
+
+
+
+
+<script type="text/javascript" src="https://eliises.github.io/js/vendors/jquery/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://eliises.github.io/js/vendors/jquery/jquery.smooth-scroll.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://eliises.github.io/js/vendors/popper.min.js"></script>
+<script type="text/javascript" src="https://eliises.github.io/js/vendors/holder.min.js"></script>
+<script type="text/javascript" src="https://eliises.github.io/js/vendors-extensions/bootstrap4/bootstrap.min.js" ></script>
+
+<script type="text/javascript" src="https://eliises.github.io/js/vendors/mdb/mdb.min.js"></script>
+
+<script type="text/javascript" src="https://eliises.github.io/js/main.js"></script>
+
+
+
+  
+  <script src="https://eliises.github.io/js/vendors/highlight.pack.js"> </script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+ 
+  <script src="https://eliises.github.io/js/vendors/katex/katex.min.js"> </script>
+  <script src="https://eliises.github.io/js/vendors/katex/contrib/auto-render.min.js"></script>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          renderMathInElement(document.body);
+      });
+  </script>
+
+
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-173967641-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<script type="text/javascript">
+  
+  new WOW().init();
+</script>
+
+
+
+
+  </body>
+</html>
