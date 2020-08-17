@@ -11,20 +11,47 @@
     
     
     <item>
-      <title>devops, vscode</title>
-      <link>https://eliises.github.io/categories/devops-vscode/</link>
+      <title>devops</title>
+      <link>https://eliises.github.io/categories/devops/</link>
       <pubDate>Wed, 08 Jul 2020 17:00:13 +0000</pubDate>
       
-      <guid>https://eliises.github.io/categories/devops-vscode/</guid>
+      <guid>https://eliises.github.io/categories/devops/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>terraform, testing, go, vscode</title>
-      <link>https://eliises.github.io/categories/terraform-testing-go-vscode/</link>
+      <title>vscode</title>
+      <link>https://eliises.github.io/categories/vscode/</link>
+      <pubDate>Wed, 08 Jul 2020 17:00:13 +0000</pubDate>
+      
+      <guid>https://eliises.github.io/categories/vscode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://eliises.github.io/categories/go/</link>
       <pubDate>Wed, 01 Jul 2020 16:30:46 +0000</pubDate>
       
-      <guid>https://eliises.github.io/categories/terraform-testing-go-vscode/</guid>
+      <guid>https://eliises.github.io/categories/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>terraform</title>
+      <link>https://eliises.github.io/categories/terraform/</link>
+      <pubDate>Wed, 01 Jul 2020 16:30:46 +0000</pubDate>
+      
+      <guid>https://eliises.github.io/categories/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>testing</title>
+      <link>https://eliises.github.io/categories/testing/</link>
+      <pubDate>Wed, 01 Jul 2020 16:30:46 +0000</pubDate>
+      
+      <guid>https://eliises.github.io/categories/testing/</guid>
       <description></description>
     </item>
     
@@ -38,47 +65,29 @@
     </item>
     
     <item>
-      <title>terraform</title>
-      <link>https://eliises.github.io/categories/terraform/</link>
-      <pubDate>Sat, 06 Jun 2020 08:06:25 +0600</pubDate>
-      
-      <guid>https://eliises.github.io/categories/terraform/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>testing</title>
-      <link>https://eliises.github.io/categories/testing/</link>
-      <pubDate>Sat, 06 Jun 2020 08:06:25 +0600</pubDate>
-      
-      <guid>https://eliises.github.io/categories/testing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>powershell, vscode</title>
-      <link>https://eliises.github.io/categories/powershell-vscode/</link>
+      <title>powershell</title>
+      <link>https://eliises.github.io/categories/powershell/</link>
       <pubDate>Wed, 15 Apr 2020 11:35:28 +0000</pubDate>
       
-      <guid>https://eliises.github.io/categories/powershell-vscode/</guid>
+      <guid>https://eliises.github.io/categories/powershell/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>kubernetes, go, testing</title>
-      <link>https://eliises.github.io/categories/kubernetes-go-testing/</link>
+      <title>kubernetes</title>
+      <link>https://eliises.github.io/categories/kubernetes/</link>
       <pubDate>Tue, 28 Jan 2020 10:24:20 +0000</pubDate>
       
-      <guid>https://eliises.github.io/categories/kubernetes-go-testing/</guid>
+      <guid>https://eliises.github.io/categories/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>kubernetes, go, analytics</title>
-      <link>https://eliises.github.io/categories/kubernetes-go-analytics/</link>
+      <title>analytics</title>
+      <link>https://eliises.github.io/categories/analytics/</link>
       <pubDate>Tue, 31 Dec 2019 17:47:47 +0000</pubDate>
       
-      <guid>https://eliises.github.io/categories/kubernetes-go-analytics/</guid>
+      <guid>https://eliises.github.io/categories/analytics/</guid>
       <description></description>
     </item>
     

@@ -12,10 +12,10 @@
     
     <item>
       <title>PowerShell Core as default shell on a Debian devcontainer</title>
-      <link>https://eliises.github.io/posts/2020-06/powershell-devcontainer/</link>
+      <link>https://eliises.github.io/posts/powershell-devcontainer/</link>
       <pubDate>Wed, 15 Apr 2020 11:35:28 +0000</pubDate>
       
-      <guid>https://eliises.github.io/posts/2020-06/powershell-devcontainer/</guid>
+      <guid>https://eliises.github.io/posts/powershell-devcontainer/</guid>
       <description>Here we&amp;rsquo;ll cover setting up powershell on a dev container with a debian:buster baseimage.</description>
     </item>
     

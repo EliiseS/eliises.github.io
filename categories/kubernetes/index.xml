@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on Eliise Seling</title>
+    <link>https://eliises.github.io/categories/kubernetes/</link>
+    <description>Recent content in kubernetes on Eliise Seling</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 28 Jan 2020 10:24:20 +0000</lastBuildDate>
+    
+	<atom:link href="https://eliises.github.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Databricks Operator load testing</title>
+      <link>https://eliises.github.io/posts/databricks-operator-load-testing/</link>
+      <pubDate>Tue, 28 Jan 2020 10:24:20 +0000</pubDate>
+      
+      <guid>https://eliises.github.io/posts/databricks-operator-load-testing/</guid>
+      <description>This blog will provide an high level overview of the methodology we&amp;rsquo;re using when load testing, using the Databricks Operator as an example.</description>
+    </item>
+    
+    <item>
+      <title>Add monitoring with Prometheus/Grafana in Kubernetes</title>
+      <link>https://eliises.github.io/posts/monitor-k8s-prom-graf/</link>
+      <pubDate>Tue, 31 Dec 2019 17:47:47 +0000</pubDate>
+      
+      <guid>https://eliises.github.io/posts/monitor-k8s-prom-graf/</guid>
+      <description>In this post I&amp;rsquo;d like to give a short overview on the parts needed to add monitoring for a GO API with Prometheus/Grafana in Kubernetes(K8).</description>
+    </item>
+    
+  </channel>
+</rss>
