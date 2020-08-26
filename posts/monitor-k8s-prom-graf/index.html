@@ -324,7 +324,7 @@
 <li>Access Grafana dashboards</li>
 </ol>
 <h2 id="create-a-go-api-with-prometheus-metrics-endpoint">Create a GO API with Prometheus <code>/metrics</code> endpoint</h2>
-<p>Here&rsquo;s a simple GO API that&rsquo;ll have an welcome page at <code>/</code> and a metrics page at <code>/metrics</code>, which will display metrics from the API. The <code>/metrics</code> will later be used to by Prometheus Operator to scrape data about the API</p>
+<p>Here&rsquo;s a simple GO API that will have an welcome page at <code>/</code> and a metrics page at <code>/metrics</code>, which will display metrics from the API. The <code>/metrics</code> will later be used to by Prometheus Operator to scrape data about the API</p>
 <div class="highlight"><pre class="chroma"><code class="language-GO" data-lang="GO"><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -474,8 +474,8 @@ helm install prom-test-api stable/prometheus-operator --set prometheus.prometheu
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Username: admin
 Password: prom-operator
 </code></pre></div><p>Create charts with metrics such as</p>
-<pre><code>increase(go_api_requests_total[1m])
-</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">increase(go_api_requests_total[1m])
+</code></pre></div>
           </div>
 
           

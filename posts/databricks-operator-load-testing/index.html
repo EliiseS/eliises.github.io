@@ -326,15 +326,18 @@ The operator allows applications hosted in Kubernetes to launch and use Databric
 <ol>
 <li>Define scenarios</li>
 <li>Run a load tests based on a scenario</li>
-<li>Create a hypothesis if unhappy with the results</li>
+<li>Create a hypothesis if unhappy with the results
+<ol>
 <li>Re-run load tests with the changes from the hypothesis</li>
 <li>Go to step 3</li>
+</ol>
+</li>
 <li>Repeat until all scenarios are covered</li>
 </ol>
 <h1 id="defining-scenarios">Defining scenarios</h1>
 <p>To begin the load tests, we first need to define test scenarios we wish to consider and the performance level we would like to achieve. These scenarios are the basis for the tests below.</p>
 <p>Here are examples of test scenarios used for the operator load testing:</p>
-<pre><code>Test Scenario 1:
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Test Scenario 1:
 1. Create a Run with cluster information supplied (referred to as Runs Submit)
 2. Await the Run terminating
 3. Delete the Run once complete regardless of status
@@ -350,7 +353,7 @@ Notes
 - This scenario is designed to test potential impact of the Operator if the Run objects are not cleaned up.
 - The operator should still be performant, even when there are a potentially large number of objects to manage
 - This test will also help us understand the acceptable stress limit of the system
-</code></pre><h1 id="running-a-scenario">Running a scenario</h1>
+</code></pre></div><h1 id="running-a-scenario">Running a scenario</h1>
 <p>To run a scenario, we&rsquo;ll start by making the load test environment as static as we can to control as many variables as possible between runs. For the operator we achieved this by using automated deployment scripts, code freezes and documenting the images used for each load test. Here&rsquo;s a snippet of the deployment script using specific image tags:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># The following variables control the versions of components that will be deployed</span>
 <span class="nv">MOCK_TAG</span><span class="o">=</span>latest-20200117.3
@@ -359,7 +362,7 @@ Notes
 <span class="nv">LOCUST_FILE</span><span class="o">=</span>behaviours/scenario2_run_submit.py
 </code></pre></div><h2 id="baseline">Baseline</h2>
 <p>We document the state of environment before load tests, as seen below. Then proceed with a baseline run, which is the first load test run in a scenario.</p>
-<pre><code>Setup
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Setup
 Components
 MOCK_TAG=latest-20191219.3
 OPERATOR_TAG=metrics-labels or baseline-20191219.1 #See note on Run 1
@@ -369,15 +372,15 @@ Locust
 Users: 25
 Time under load: 25mins
 Spawn rate: 0.03 (1 every 30 secs)
-</code></pre><p>After the run is done, we document what has happened, for example: the state of Grafana graphs, tests we&rsquo;ve run if an issue was highlighted, key points discovered.</p>
+</code></pre></div><p>After the run is done, we document what has happened, for example: the state of Grafana graphs, tests we&rsquo;ve run if an issue was highlighted, key points discovered.</p>
 <p>An example of the metrics:
 <img src="https://dev-to-uploads.s3.amazonaws.com/i/84r01d0svnmaptrdsb3k.png" alt="Alt Text"></p>
 <p><img src="https://dev-to-uploads.s3.amazonaws.com/i/4ttnf2ch93g7e913n3pd.png" alt="Alt Text"></p>
 <p>From the above metrics we discovered these key points:</p>
-<pre><code>Run summary
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Run summary
 - Run completion time increasing, which is a static value set at 6 seconds, indicating there is a issue with handling the load somewhere
 - Requests to the MockAPI are decreasing and are in a spaced out pattern
-</code></pre><h2 id="hypothesis">Hypothesis</h2>
+</code></pre></div><h2 id="hypothesis">Hypothesis</h2>
 <p>Based on the summary we hypothesized the problem is with the operator. The MockAPI is receiving fewer requests as the load increases, meaning the operator is struggling to process the amount of requests.</p>
 <p>This lead into an investigation into the operator, where we saw the <code>time.sleep</code> operation is in use. Based on this discovery, we created a fork of the operator and replaced the usage of <code>time.sleep</code>.</p>
 <p>The fix for <code>time.sleep</code> can be found here: <a href="https://github.com/microsoft/azure-databricks-operator/pull/141">https://github.com/microsoft/azure-databricks-operator/pull/141</a></p>

@@ -7,10 +7,10 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
   <meta name="author" content="Eliise Seling">
-  <meta name="description" content="Here we&rsquo;ll cover setting up powershell on a dev container with a debian:buster baseimage.">
+  <meta name="description" content="Here we&rsquo;ll cover setting up PowerShell on a devcontainer with a debian:buster base image.">
   
   <meta property="og:title" content="PowerShell Core as default shell on a Debian devcontainer" />
-<meta property="og:description" content="Here we&rsquo;ll cover setting up powershell on a dev container with a debian:buster baseimage." />
+<meta property="og:description" content="Here we&rsquo;ll cover setting up PowerShell on a devcontainer with a debian:buster base image." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://eliises.github.io/posts/powershell-devcontainer/" />
 <meta property="article:published_time" content="2020-04-15T11:35:28+00:00" />
@@ -316,11 +316,11 @@
 
 
           <div class="post-content markdown">
-            <p>Here we&rsquo;ll cover setting up powershell on a dev container with a <code>debian:buster</code> baseimage.</p>
-<p>At the bottom of this article you can also find the full <a href="#devcontainerjson">devcontainer.json</a> and <a href="#dockerimage">dockerimage</a>, which you can skip to.</p>
+            <p>Here we&rsquo;ll cover setting up PowerShell on a devcontainer with a <code>debian:buster</code> base image.</p>
+<p>At the bottom of this article you can also find the full <a href="#devcontainerjson">devcontainer.json</a> and <a href="#dockerimage">docker image</a>, which you can skip to.</p>
 <p>Credit to: <a href="https://www.phillipsj.net/posts/powershell-as-default-shell-on-ubuntu/">https://www.phillipsj.net/posts/powershell-as-default-shell-on-ubuntu/</a></p>
-<h1 id="installing-powershell-7">Installing Powershell 7</h1>
-<p>Here&rsquo;s the PowerShell install snippet from our debian dockerfile.</p>
+<h1 id="installing-powershell-7">Installing PowerShell 7</h1>
+<p>Here&rsquo;s the PowerShell install snippet from our Debian Dockerfile.</p>
 <div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c"># Install PowerShell 7</span><span class="err">
 </span><span class="err"></span><span class="k">RUN</span> wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb <span class="se">\
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> dpkg -i packages-microsoft-prod.deb <span class="se">\
@@ -328,7 +328,7 @@
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get update <span class="se">\
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get install -y powershell <span class="err">\
 </span></code></pre></div><h1 id="set-powershell-as-default-shell">Set PowerShell as default shell</h1>
-<p>Next to set powershell as our default shell we must find it in the list of available shells with:</p>
+<p>Next to set PowerShell as our default shell we must find it in the list of available shells with:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ cat /etc/shells
 <span class="c1"># /etc/shells: valid login shells</span>
 /bin/sh
@@ -350,7 +350,7 @@
 </span><span class="se"></span>    <span class="c1">## Add alias</span><span class="err">
 </span><span class="err"></span>    <span class="o">&amp;&amp;</span> pwsh -c <span class="s2">&#34;&#39;New-Alias \&#34;tf\&#34; \&#34;terraform\&#34;&#39; | Out-File -FilePath \$profile&#34;</span><span class="err">
 </span></code></pre></div><h1 id="complete-files">Complete files</h1>
-<h2 id="dockerimage">Dockerimage</h2>
+<h2 id="docker-image">Docker image</h2>
 <div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="k">FROM</span><span class="s"> debian:buster</span><span class="err">
 </span><span class="err">
 </span><span class="err"></span><span class="c"># Avoid warnings by switching to noninteractive</span><span class="err">
@@ -398,7 +398,7 @@
 </code></pre></div><h1 id="known-issues">Known issues</h1>
 <p>These are the issues that I&rsquo;ve run into:</p>
 <ul>
-<li>PowerShell Core has fewer modules and commands available when compared to Powershell</li>
+<li>PowerShell Core has fewer modules and commands available when compared to PowerShell</li>
 <li><code>Remove-Item</code> command has been unusable due to exasperated results with a known issue: <a href="https://github.com/PowerShell/PowerShell/issues/8211">https://github.com/PowerShell/PowerShell/issues/8211</a></li>
 </ul>
 
@@ -480,7 +480,7 @@
 
 										<li class="nav-item">
 						 					<a class="nav-link" href="#installing-powershell-7">
-												 Installing Powershell 7
+												 Installing PowerShell 7
 											</a>
 										</li>
 						 
@@ -569,8 +569,8 @@
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#dockerimage">
-												 Dockerimage
+						 					<a class="nav-link" href="#docker-image">
+												 Docker image
 											</a>
 										</li>
 						 

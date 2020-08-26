@@ -329,7 +329,7 @@
 <p>I&rsquo;ve created the <a href="https://github.com/EliiseS/terraform-pester-devcontainer-example">terraform-pester-devcontainer-example repository</a> to demonstrate devcontainer pipelines. The project consists of:</p>
 <ul>
 <li><a href="https://github.com/EliiseS/terraform-pester-devcontainer-example/blob/master/main.tf">terraform</a> to provision resources in Azure Devops</li>
-<li><a href="https://github.com/EliiseS/terraform-pester-devcontainer-example/blob/master/tfIntegration.tests.ps1">tests</a> covering the terraform written in Pester, a powershell testing framework
+<li><a href="https://github.com/EliiseS/terraform-pester-devcontainer-example/blob/master/tfIntegration.tests.ps1">tests</a> covering the terraform written in Pester, a PowerShell testing framework
 <ul>
 <li>More about testing terraform with Pester <a href="https://dev.to/eliises/testing-terraform-with-pester-1b01">in my previous post</a></li>
 </ul>
@@ -394,8 +394,8 @@
 </span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
 </span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
 </span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>.devcontainer/Dockerfile<span class="w"> </span>-t<span class="w"> </span>devcontainer<span class="w"> </span>.<span class="w">
-</span></code></pre></div><h3 id="build-times">Build times</h3>
-<p>Below we can see the time the build took. Installing dependencies locally is very fast, with majority of the time being spent on building the dev container. Looking at this, the best way to save time on your builds it by not using a devcontainer at all! Luckily, there are other benefits that more than make up for this gluttony.</p>
+</span></code></pre></div><h3 id="classic-build-times">Classic build times</h3>
+<p>Below we can see the time the build took. Installing dependencies locally is very fast, with majority of the time being spent on building the devcontainer. Looking at this, the best way to save time on your builds it by not using a devcontainer at all! Luckily, there are other benefits that more than make up for this gluttony.</p>
 <p><img src="https://eliises.github.io/images/dockerizing-devops/classic-pipeline.png" alt="Classic pipeline"></p>
 <h2 id="devcontainer-pipeline">Devcontainer pipeline</h2>
 <p>Now lets do what we&rsquo;ve all been waiting for and convert the above pipeline to now instead run the tasks inside of the devcontainer:</p>
@@ -438,7 +438,7 @@
 </span><span class="w">              </span>--workdir<span class="w"> </span>/src<span class="w"> </span>`<span class="w">
 </span><span class="w">              </span>devcontainer<span class="w"> </span>`<span class="w">
 </span><span class="w">              </span>-c<span class="w"> </span>Invoke-Pester<span class="w"> </span>-EnableExit<span class="w">
-</span></code></pre></div><h3 id="build-times-1">Build times</h3>
+</span></code></pre></div><h3 id="devcontainer-build-times">Devcontainer build times</h3>
 <p>Below we can see that we&rsquo;ve shaved off a few seconds, but nothing amazing.</p>
 <p><img src="https://eliises.github.io/images/dockerizing-devops/devcontainer-pipeline.png" alt="Devcontainer pipeline"></p>
 <h2 id="devcontainer-pipeline-with-caching">Devcontainer pipeline with caching</h2>
@@ -511,8 +511,8 @@
 </span><span class="w">              </span>devcontainer<span class="w"> </span>`<span class="w">
 </span><span class="w">              </span>-c<span class="w"> </span>Invoke-Pester<span class="w"> </span>-EnableExit<span class="w">
 </span></code></pre></div><h3 id="alternatives-to-caching">Alternatives to caching</h3>
-<p>An alternatives to caching is using a container registry to save your image, such as the <a href="https://docs.microsoft.com/en-us/azure/container-registry/container-registry-intro">azure container registry</a> or <a href="https://docs.docker.com/docker-hub/">docker hub</a>. Infact <a href="https://github.com/lawrencegripper/azbrowse">AzBrowze</a> is using docker hub for it&rsquo;s caching.</p>
-<h3 id="build-times-2">Build times</h3>
+<p>An alternatives to caching is using a container registry to save your image, such as the <a href="https://docs.microsoft.com/en-us/azure/container-registry/container-registry-intro">azure container registry</a> or <a href="https://docs.docker.com/docker-hub/">docker hub</a>. In fact <a href="https://github.com/lawrencegripper/azbrowse">AzBrowze</a> is using docker hub for it&rsquo;s caching.</p>
+<h3 id="caching-build-times">Caching build times</h3>
 <p>With cashing we can see that our run times actually increased the first time the build in run:</p>
 <p><img src="https://eliises.github.io/images/dockerizing-devops/caching-pipeline.png" alt="Caching pipeline"></p>
 <p>But on consecutive runs when we are retrieving the cache, it&rsquo;s lower overall.</p>
@@ -721,8 +721,8 @@ docker run <span class="sb">`</span>
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#build-times">
-												 Build times
+						 					<a class="nav-link" href="#classic-build-times">
+												 Classic build times
 											</a>
 										</li>
 						 
@@ -769,8 +769,8 @@ docker run <span class="sb">`</span>
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#build-times-1">
-												 Build times
+						 					<a class="nav-link" href="#devcontainer-build-times">
+												 Devcontainer build times
 											</a>
 										</li>
 						 
@@ -843,8 +843,8 @@ docker run <span class="sb">`</span>
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#build-times-2">
-												 Build times
+						 					<a class="nav-link" href="#caching-build-times">
+												 Caching build times
 											</a>
 										</li>
 						 
