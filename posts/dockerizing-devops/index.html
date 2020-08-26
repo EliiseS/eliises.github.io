@@ -445,7 +445,7 @@
 <p>As a bonus, we can also cache our devcontainer image between runs to further reduce the time the builds take. Take a look at the YAML below:</p>
 <h5 id="azdodevcontainer-caching-pipelineymlhttpsgithubcomeliisesterraform-pester-devcontainer-exampleblobmasterazdodevcontainer-caching-pipelineyml"><a href="https://github.com/EliiseS/terraform-pester-devcontainer-example/blob/master/.azdo/devcontainer-caching-pipeline.yml">.azdo/devcontainer-caching-pipeline.yml</a></h5>
 <div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">    </span><span class="k">steps</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="c"># Initialize caching </span><span class="w">
+</span><span class="w">      </span><span class="c"># Initialize caching</span><span class="w">
 </span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>Cache@<span class="m">2</span><span class="w">
 </span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
 </span><span class="w">          </span><span class="k">key</span><span class="p">:</span><span class="w"> </span>docker-image<span class="w"> </span>|<span class="w"> </span>.devcontainer/<span class="cp">**</span><span class="w">

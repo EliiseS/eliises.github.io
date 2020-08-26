@@ -464,7 +464,7 @@ cat ./manifests/deployment.yaml <span class="p">|</span> <span class="nv">PROM_G
 kubectl apply -f ./manifests/service.yaml
 </code></pre></div><h2 id="deploy-prometheus-to-k8">Deploy Prometheus to K8</h2>
 <p>Install the <code>prometheus-operator</code> helm chart</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false means all serviceMonitors are discovered not just</span> 
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false means all serviceMonitors are discovered not just</span>
 <span class="c1"># those deployed by the helm chart itself</span>
 helm install prom-test-api stable/prometheus-operator --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues<span class="o">=</span><span class="nb">false</span>
 </code></pre></div><p>Check it&rsquo;s running</p>
