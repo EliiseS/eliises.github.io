@@ -12,9 +12,10 @@
   <meta property="og:title" content="PowerShell Core as default shell on a Debian devcontainer" />
 <meta property="og:description" content="Here we&rsquo;ll cover setting up PowerShell on a devcontainer with a debian:buster base image." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://eliises.github.io/posts/powershell-devcontainer/" />
+<meta property="og:url" content="https://eliises.github.io/posts/powershell-devcontainer/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-04-15T11:35:28+00:00" />
-<meta property="article:modified_time" content="2020-04-15T11:35:28+00:00" /><meta property="og:see_also" content="https://eliises.github.io/posts/dockerizing-devops/" />
+<meta property="article:modified_time" content="2020-04-15T11:35:28+00:00" />
+<meta property="og:see_also" content="https://eliises.github.io/posts/dockerizing-devops/" />
 
 
 
@@ -72,6 +73,22 @@
   
     
     <link rel="stylesheet" href="https://eliises.github.io/css/vendors/highlight/github-gist.css">
+  
+
+  
+  
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-173967641-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
   
 
 </head>
@@ -321,7 +338,7 @@
 <p>Credit to: <a href="https://www.phillipsj.net/posts/powershell-as-default-shell-on-ubuntu/">https://www.phillipsj.net/posts/powershell-as-default-shell-on-ubuntu/</a></p>
 <h1 id="installing-powershell-7">Installing PowerShell 7</h1>
 <p>Here&rsquo;s the PowerShell install snippet from our Debian Dockerfile.</p>
-<div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c"># Install PowerShell 7</span><span class="err">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c"># Install PowerShell 7</span><span class="err">
 </span><span class="err"></span><span class="k">RUN</span> wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb <span class="se">\
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> dpkg -i packages-microsoft-prod.deb <span class="se">\
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> rm packages-microsoft-prod.deb <span class="se">\
@@ -329,7 +346,7 @@
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get install -y powershell <span class="err">\
 </span></code></pre></div><h1 id="set-powershell-as-default-shell">Set PowerShell as default shell</h1>
 <p>Next to set PowerShell as our default shell we must find it in the list of available shells with:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ cat /etc/shells
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ cat /etc/shells
 <span class="c1"># /etc/shells: valid login shells</span>
 /bin/sh
 /bin/bash
@@ -338,12 +355,12 @@
 /usr/bin/pwsh
 /opt/microsoft/powershell/7/pwsh
 </code></pre></div><p>The last item in the list is the PowerShell shell location, which we need to use in our <code>devcontainer.json</code> file to set it as our default shell.</p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;settings&#34;</span><span class="err">:</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;settings&#34;</span><span class="err">:</span> <span class="p">{</span>
 		<span class="nt">&#34;terminal.integrated.shell.linux&#34;</span><span class="p">:</span> <span class="s2">&#34;/opt/microsoft/powershell/7/pwsh&#34;</span><span class="p">,</span>
 	<span class="p">}</span><span class="err">,</span>
 </code></pre></div><h1 id="optional-powershell-profile-set-up">Optional PowerShell profile set up</h1>
 <p>If you want to be able to customize your PowerShell like you would with bash, such as to add aliases, you can set up a profile using the below.</p>
-<div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c"># Powershell customization</span><span class="err">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c"># Powershell customization</span><span class="err">
 </span><span class="err"></span><span class="k">RUN</span> <span class="se">\
 </span><span class="se"></span>    <span class="c1">## Create PS profile</span><span class="err">
 </span><span class="err"></span>    pwsh -c <span class="s1">&#39;New-Item -Path $profile -ItemType File -Force&#39;</span> <span class="se">\
@@ -351,7 +368,7 @@
 </span><span class="err"></span>    <span class="o">&amp;&amp;</span> pwsh -c <span class="s2">&#34;&#39;New-Alias \&#34;tf\&#34; \&#34;terraform\&#34;&#39; | Out-File -FilePath \$profile&#34;</span><span class="err">
 </span></code></pre></div><h1 id="complete-files">Complete files</h1>
 <h2 id="docker-image">Docker image</h2>
-<div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="k">FROM</span><span class="s"> debian:buster</span><span class="err">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="k">FROM</span><span class="s"> debian:buster</span><span class="err">
 </span><span class="err">
 </span><span class="err"></span><span class="c"># Avoid warnings by switching to noninteractive</span><span class="err">
 </span><span class="err"></span><span class="k">ENV</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
@@ -369,7 +386,7 @@
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> rm packages-microsoft-prod.deb <span class="se">\
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get update <span class="se">\
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get install -y powershell <span class="se">\
-</span><span class="se"></span>    #<span class="err">
+</span><span class="se"></span>    <span class="c1">#</span><span class="err">
 </span><span class="err"></span>    <span class="c1"># Clean up</span><span class="err">
 </span><span class="err"></span>    <span class="o">&amp;&amp;</span> apt-get autoremove -y <span class="se">\
 </span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get clean -y <span class="se">\
@@ -385,15 +402,15 @@
 </span><span class="err"></span><span class="c"># Switch back to dialog for any ad-hoc use of apt-get</span><span class="err">
 </span><span class="err"></span><span class="k">ENV</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>dialog
 </code></pre></div><h2 id="devcontainerjson">devcontainer.json</h2>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
   <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Debian 10 &amp; PowerShell&#34;</span><span class="p">,</span>
   <span class="nt">&#34;dockerFile&#34;</span><span class="p">:</span> <span class="s2">&#34;Dockerfile&#34;</span><span class="p">,</span>
-  <span class="err">//</span> <span class="err">Set</span> <span class="err">*default*</span> <span class="err">container</span> <span class="err">specific</span> <span class="err">settings.json</span> <span class="err">values</span> <span class="err">on</span> <span class="err">container</span> <span class="err">create.</span>
-  <span class="nt">&#34;settings&#34;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="c1">// Set *default* container specific settings.json values on container create.
+</span><span class="c1"></span>  <span class="nt">&#34;settings&#34;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&#34;terminal.integrated.shell.linux&#34;</span><span class="p">:</span> <span class="s2">&#34;/opt/microsoft/powershell/7/pwsh&#34;</span>
   <span class="p">},</span>
-  <span class="err">//</span> <span class="err">Add</span> <span class="err">the</span> <span class="err">IDs</span> <span class="err">of</span> <span class="err">extensions</span> <span class="err">you</span> <span class="err">want</span> <span class="err">installed</span> <span class="err">when</span> <span class="err">the</span> <span class="err">container</span> <span class="err">is</span> <span class="err">created.</span>
-  <span class="nt">&#34;extensions&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;ms-vscode.powershell&#34;</span><span class="p">]</span>
+  <span class="c1">// Add the IDs of extensions you want installed when the container is created.
+</span><span class="c1"></span>  <span class="nt">&#34;extensions&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;ms-vscode.powershell&#34;</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div><h1 id="known-issues">Known issues</h1>
 <p>These are the issues that I&rsquo;ve run into:</p>
@@ -697,7 +714,7 @@
 
   
   <div class="copyright py-4">
-    <span>  2016 - 2020 &copy; | Theme <a href='https://github.com/EliiseS/AllinOne' target="_blank">AllinOne</a> </span>
+    <span>  2016 - 2022 &copy; | Theme <a href='https://github.com/EliiseS/AllinOne' target="_blank">AllinOne</a> </span>
   </div>
   
 
@@ -742,23 +759,6 @@
           renderMathInElement(document.body);
       });
   </script>
-
-
-
-
-
-
-  
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-173967641-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

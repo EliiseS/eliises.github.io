@@ -12,9 +12,10 @@
   <meta property="og:title" content="Debug Terraform (Azure Devops) Provider with VSCode" />
 <meta property="og:description" content="Introduction In an effort to save someone the pain of having to go through what I did when trying to get debugging to work on the Terraform Azure Devops Provider acceptance tests, here&rsquo;s the solution." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://eliises.github.io/posts/debug-tf-vscode/" />
+<meta property="og:url" content="https://eliises.github.io/posts/debug-tf-vscode/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-07-01T16:30:46+00:00" />
 <meta property="article:modified_time" content="2020-07-20T09:43:36+00:00" />
+
 
 
   <title>
@@ -71,6 +72,22 @@
   
     
     <link rel="stylesheet" href="https://eliises.github.io/css/vendors/highlight/github-gist.css">
+  
+
+  
+  
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-173967641-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
   
 
 </head>
@@ -329,7 +346,7 @@
 <p>NB: The <code>buildFlags</code> attribute was only needed for Azure Devops provider, for example, the Databricks provider work without it.</p>
 </blockquote>
 <h5 id="launchjson"><code>launch.json</code></h5>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
     <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;0.2.0&#34;</span><span class="p">,</span>
     <span class="nt">&#34;configurations&#34;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
@@ -353,7 +370,7 @@
     <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div><p><code>.env</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">AZDO_PERSONAL_ACCESS_TOKEN=&lt;your_token&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">AZDO_PERSONAL_ACCESS_TOKEN=&lt;your_token&gt;</span>
 <span class="err">AZDO_ORG_SERVICE_URL=&lt;your_azdo_org&gt;</span>
 </code></pre></div><p>Make sure <code>Launch a test</code> is selected in the VSCode debug window</p>
 <p><img src="https://eliises.github.io/images/debug-tf-vscode/launch-test.png" alt="Launch debug"></p>
@@ -368,7 +385,7 @@
 <h2 id="fixed-enable-codelens-debugging">Fixed: Enable codelens debugging</h2>
 <p>The missing piece to enable codelens debugging is to add the below flags to <code>go.testFlags</code> in <code>settings.json</code></p>
 <h4 id="settingsjson"><strong><code>settings.json</code></strong></h4>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
     <span class="nt">&#34;go.testFlags&#34;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s2">&#34;-v&#34;</span><span class="p">,</span>
         <span class="s2">&#34;-tags=all&#34;</span><span class="p">,</span>
@@ -727,7 +744,7 @@
 
   
   <div class="copyright py-4">
-    <span>  2016 - 2020 &copy; | Theme <a href='https://github.com/EliiseS/AllinOne' target="_blank">AllinOne</a> </span>
+    <span>  2016 - 2022 &copy; | Theme <a href='https://github.com/EliiseS/AllinOne' target="_blank">AllinOne</a> </span>
   </div>
   
 
@@ -772,23 +789,6 @@
           renderMathInElement(document.body);
       });
   </script>
-
-
-
-
-
-
-  
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-173967641-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

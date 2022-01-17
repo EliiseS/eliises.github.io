@@ -12,9 +12,10 @@
   <meta property="og:title" content="Add monitoring with Prometheus/Grafana in Kubernetes" />
 <meta property="og:description" content="In this post I&rsquo;d like to give a short overview on the parts needed to add monitoring for a GO API with Prometheus/Grafana in Kubernetes(K8)." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://eliises.github.io/posts/monitor-k8s-prom-graf/" />
+<meta property="og:url" content="https://eliises.github.io/posts/monitor-k8s-prom-graf/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-12-31T17:47:47+00:00" />
 <meta property="article:modified_time" content="2019-12-31T17:47:47+00:00" />
+
 
 
   <title>
@@ -71,6 +72,22 @@
   
     
     <link rel="stylesheet" href="https://eliises.github.io/css/vendors/highlight/github-gist.css">
+  
+
+  
+  
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-173967641-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
   
 
 </head>
@@ -325,7 +342,7 @@
 </ol>
 <h2 id="create-a-go-api-with-prometheus-metrics-endpoint">Create a GO API with Prometheus <code>/metrics</code> endpoint</h2>
 <p>Here&rsquo;s a simple GO API that will have an welcome page at <code>/</code> and a metrics page at <code>/metrics</code>, which will display metrics from the API. The <code>/metrics</code> will later be used to by Prometheus Operator to scrape data about the API</p>
-<div class="highlight"><pre class="chroma"><code class="language-GO" data-lang="GO"><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-GO" data-lang="GO"><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
 	<span class="s">&#34;log&#34;</span>
@@ -395,86 +412,86 @@
 
 </code></pre></div><h2 id="deploy-api-service-service-monitor-to-k8">Deploy API, service, service monitor to K8</h2>
 <p>YAML file to deploy the API, service and service monitor to K8</p>
-<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Namespace<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w">          </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>$PROM_GO_API_IMAGE_NAME<span class="w">
-</span><span class="w">          </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>Always<span class="w">
-</span><span class="w">          </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;128Mi&#34;</span><span class="w">
-</span><span class="w">              </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;500m&#34;</span><span class="w">
-</span><span class="w">          </span><span class="k">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
-</span><span class="w">              </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>api<span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
-</span><span class="w">      </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span>api<span class="w">
-</span><span class="w">      </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>api<span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>monitoring.coreos.com/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ServiceMonitor<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>prom-go-api-servicemonitor<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>prom-go-api<span class="w">
-</span><span class="w">  </span><span class="k">namespaceSelector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">matchNames</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- prom-go-api<span class="w">
-</span><span class="w">  </span><span class="k">endpoints</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">port</span><span class="p">:</span><span class="w"> </span>api<span class="w">
-</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/metrics<span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-YAML" data-lang="YAML"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">$PROM_GO_API_IMAGE_NAME</span><span class="w">
+</span><span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Always</span><span class="w">
+</span><span class="w">          </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;128Mi&#34;</span><span class="w">
+</span><span class="w">              </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;500m&#34;</span><span class="w">
+</span><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">api</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l">api</span><span class="w">
+</span><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">api</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">monitoring.coreos.com/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceMonitor</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api-servicemonitor</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">prom-go-api</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespaceSelector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">matchNames</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">prom-go-api</span><span class="w">
+</span><span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l">api</span><span class="w">
+</span><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/metrics</span><span class="w">
 </span></code></pre></div><p>Create a local docker image of the GO API and replace IMG with the docker image name to add the above YAML to K8</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Replace ${IMG} with your local docker image name</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Replace ${IMG} with your local docker image name</span>
 cat ./manifests/deployment.yaml <span class="p">|</span> <span class="nv">PROM_GO_API_IMAGE_NAME</span><span class="o">=</span><span class="nv">$IMG</span> envsubst <span class="p">|</span> kubectl apply -f -
 kubectl apply -f ./manifests/service.yaml
 </code></pre></div><h2 id="deploy-prometheus-to-k8">Deploy Prometheus to K8</h2>
 <p>Install the <code>prometheus-operator</code> helm chart</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false means all serviceMonitors are discovered not just</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false means all serviceMonitors are discovered not just</span>
 <span class="c1"># those deployed by the helm chart itself</span>
 helm install prom-test-api stable/prometheus-operator --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues<span class="o">=</span><span class="nb">false</span>
 </code></pre></div><p>Check it&rsquo;s running</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">kubectl port-forward service/prom-azure-databricks-operator-grafana  8090:80 --namespace<span class="o">=</span><span class="s2">&#34;default&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl port-forward service/prom-azure-databricks-operator-grafana  8090:80 --namespace<span class="o">=</span><span class="s2">&#34;default&#34;</span>
 </code></pre></div><h2 id="access-grafana-dashboards">Access Grafana dashboards</h2>
 <p>Access Grafana on <code>http://localhost:8090</code> with the credentials below</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Username: admin
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Username: admin
 Password: prom-operator
 </code></pre></div><p>Create charts with metrics such as</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">increase(go_api_requests_total[1m])
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">increase(go_api_requests_total[1m])
 </code></pre></div>
           </div>
 
@@ -734,7 +751,7 @@ Password: prom-operator
 
   
   <div class="copyright py-4">
-    <span>  2016 - 2020 &copy; | Theme <a href='https://github.com/EliiseS/AllinOne' target="_blank">AllinOne</a> </span>
+    <span>  2016 - 2022 &copy; | Theme <a href='https://github.com/EliiseS/AllinOne' target="_blank">AllinOne</a> </span>
   </div>
   
 
@@ -779,23 +796,6 @@ Password: prom-operator
           renderMathInElement(document.body);
       });
   </script>
-
-
-
-
-
-
-  
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-173967641-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

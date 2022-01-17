@@ -4,10 +4,6 @@
     <title>Tags on Eliise Seling</title>
     <link>https://eliises.github.io/tags/</link>
     <description>Recent content in Tags on Eliise Seling</description>
-    <generator>Hugo -- gohugo.io</generator>
-    
-	<atom:link href="https://eliises.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <generator>Hugo -- gohugo.io</generator><atom:link href="https://eliises.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

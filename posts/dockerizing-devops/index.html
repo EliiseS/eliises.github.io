@@ -12,9 +12,10 @@
   <meta property="og:title" content="Dockerizing DevOps" />
 <meta property="og:description" content="Reusing a devcontainer build environment for pipelines" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://eliises.github.io/posts/dockerizing-devops/" />
+<meta property="og:url" content="https://eliises.github.io/posts/dockerizing-devops/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-07-08T17:00:13+00:00" />
-<meta property="article:modified_time" content="2020-07-08T17:00:13+00:00" /><meta property="og:see_also" content="https://eliises.github.io/posts/powershell-devcontainer/" />
+<meta property="article:modified_time" content="2020-07-08T17:00:13+00:00" />
+<meta property="og:see_also" content="https://eliises.github.io/posts/powershell-devcontainer/" />
 
 
 
@@ -72,6 +73,22 @@
   
     
     <link rel="stylesheet" href="https://eliises.github.io/css/vendors/highlight/github-gist.css">
+  
+
+  
+  
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-173967641-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
   
 
 </head>
@@ -302,7 +319,7 @@
 
   
     <li class="middot"></li>
-    <li>4 minute read</li>
+    <li>5 minute read</li>
   
 </ul>
 
@@ -346,170 +363,170 @@
 <h2 id="classic-pipeline">Classic pipeline</h2>
 <p>In a classic or standard pipeline, we first install the dependencies in the pipeline and then run our checks:</p>
 <h5 id="azdoclassic-pipelineymlhttpsgithubcomeliisesterraform-pester-devcontainer-exampleblobmasterazdoclassic-pipelineyml"><a href="https://github.com/EliiseS/terraform-pester-devcontainer-example/blob/master/.azdo/classic-pipeline.yml">.azdo/classic-pipeline.yml</a></h5>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w"> </span><span class="k">steps</span><span class="p">:</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="w"> </span><span class="nt">steps</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span><span class="c"># Install dependencies</span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>TerraformInstaller@<span class="m">0</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Install terraform&#39;</span><span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">terraformVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.12.25</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">TerraformInstaller@0</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Install terraform&#39;</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">terraformVersion</span><span class="p">:</span><span class="w"> </span><span class="m">0.12.25</span><span class="w">
 </span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>Bash@<span class="m">3</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Install<span class="w"> </span>tflint<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="sd">            curl -L https://github.com/terraform-linters/tflint/releases/download/v0.17.0/tflint_linux_amd64.zip -o tflint.zip</span><span class="w">
-</span><span class="w">            </span>unzip<span class="w"> </span>tflint.zip<span class="w">
-</span><span class="w">            </span>rm<span class="w"> </span>tflint.zip<span class="w">
-</span><span class="w">            </span>sudo<span class="w"> </span>mv<span class="w"> </span>tflint<span class="w"> </span>/usr/local/bin<span class="w"> </span>\<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">Bash@3</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Install tflint</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="sd">            curl -L https://github.com/terraform-linters/tflint/releases/download/v0.17.0/tflint_linux_amd64.zip -o tflint.zip
+</span><span class="sd">            unzip tflint.zip
+</span><span class="sd">            rm tflint.zip
+</span><span class="sd">            sudo mv tflint /usr/local/bin \</span><span class="w">            
 </span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Install<span class="w"> </span>Pester<span class="w"> </span>module<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span>Install-Module<span class="w"> </span>-Name<span class="w"> </span>Pester<span class="w"> </span>-Force<span class="w"> </span>-RequiredVersion<span class="w"> </span><span class="m">4.10.1</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Install Pester module</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l">Install-Module -Name Pester -Force -RequiredVersion 4.10.1</span><span class="w">
 </span><span class="w">
 </span><span class="w">      </span><span class="c"># Run checks</span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Validate<span class="w"> </span>terraform<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="sd">            terraform init</span><span class="w">
-</span><span class="w">            </span>terraform<span class="w"> </span>validate<span class="w">
-</span><span class="w">            </span>tflint<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Validate terraform</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="sd">            terraform init
+</span><span class="sd">            terraform validate
+</span><span class="sd">            tflint</span><span class="w">            
 </span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Run<span class="w"> </span>tests<span class="w">
-</span><span class="w">        </span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">AZURE_DEVOPS_EXT_PAT</span><span class="p">:</span><span class="w"> </span>$(AZDO_PERSONAL_ACCESS_TOKEN)<span class="w">
-</span><span class="w">          </span><span class="k">AZDO_PERSONAL_ACCESS_TOKEN</span><span class="p">:</span><span class="w"> </span>$(AZDO_PERSONAL_ACCESS_TOKEN)<span class="w">
-</span><span class="w">          </span><span class="k">AZDO_ORG_SERVICE_URL</span><span class="p">:</span><span class="w"> </span>$(AZDO_ORG_SERVICE_URL)<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span>Invoke-Pester<span class="w"> </span>-EnableExit<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Run tests</span><span class="w">
+</span><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">AZURE_DEVOPS_EXT_PAT</span><span class="p">:</span><span class="w"> </span><span class="l">$(AZDO_PERSONAL_ACCESS_TOKEN)</span><span class="w">
+</span><span class="w">          </span><span class="nt">AZDO_PERSONAL_ACCESS_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">$(AZDO_PERSONAL_ACCESS_TOKEN)</span><span class="w">
+</span><span class="w">          </span><span class="nt">AZDO_ORG_SERVICE_URL</span><span class="p">:</span><span class="w"> </span><span class="l">$(AZDO_ORG_SERVICE_URL)</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l">Invoke-Pester -EnableExit</span><span class="w">
 </span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Build<span class="w"> </span>devcontainer<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>.devcontainer/Dockerfile<span class="w"> </span>-t<span class="w"> </span>devcontainer<span class="w"> </span>.<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Build devcontainer</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l">docker build -f .devcontainer/Dockerfile -t devcontainer .</span><span class="w">
 </span></code></pre></div><h3 id="classic-build-times">Classic build times</h3>
 <p>Below we can see the time the build took. Installing dependencies locally is very fast, with majority of the time being spent on building the devcontainer. Looking at this, the best way to save time on your builds it by not using a devcontainer at all! Luckily, there are other benefits that more than make up for this gluttony.</p>
 <p><img src="https://eliises.github.io/images/dockerizing-devops/classic-pipeline.png" alt="Classic pipeline"></p>
 <h2 id="devcontainer-pipeline">Devcontainer pipeline</h2>
 <p>Now lets do what we&rsquo;ve all been waiting for and convert the above pipeline to now instead run the tasks inside of the devcontainer:</p>
 <h5 id="azdodevcontainer-pipelineymlhttpsgithubcomeliisesterraform-pester-devcontainer-exampleblobmasterazdodevcontainer-pipelineyml"><a href="https://github.com/EliiseS/terraform-pester-devcontainer-example/blob/master/.azdo/devcontainer-pipeline.yml">.azdo/devcontainer-pipeline.yml</a></h5>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">steps</span><span class="p">:</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">steps</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span><span class="c"># Build the devcontainer</span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Build<span class="w"> </span>devcontainer<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>.devcontainer/Dockerfile<span class="w"> </span>-t<span class="w"> </span>devcontainer<span class="w"> </span>.<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Build devcontainer</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l">docker build -f .devcontainer/Dockerfile -t devcontainer .</span><span class="w">
 </span><span class="w">
 </span><span class="w">      </span><span class="c"># Run checks inside the devcontainer</span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Validate<span class="w"> </span>terraform<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="sd">            docker run `</span><span class="w">
-</span><span class="w">              </span>--entrypoint<span class="w"> </span>/opt/microsoft/powershell/<span class="m">7</span>/pwsh<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-v<span class="w"> </span>$(System.DefaultWorkingDirectory)<span class="p">:</span>/src<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>--workdir<span class="w"> </span>/src<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>devcontainer<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-c<span class="w"> </span><span class="s2">&#34;terraform init &amp;&amp; terraform validate &amp;&amp; tflint&#34;</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Validate terraform</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="sd">            docker run `
+</span><span class="sd">              --entrypoint /opt/microsoft/powershell/7/pwsh `
+</span><span class="sd">              -v $(System.DefaultWorkingDirectory):/src `
+</span><span class="sd">              --workdir /src `
+</span><span class="sd">              devcontainer `
+</span><span class="sd">              -c &#34;terraform init &amp;&amp; terraform validate &amp;&amp; tflint&#34;</span><span class="w">            
 </span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Run<span class="w"> </span>tests<span class="w">
-</span><span class="w">        </span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">AZDO_PERSONAL_ACCESS_TOKEN</span><span class="p">:</span><span class="w"> </span>$(AZDO_PERSONAL_ACCESS_TOKEN)<span class="w">
-</span><span class="w">          </span><span class="k">AZDO_ORG_SERVICE_URL</span><span class="p">:</span><span class="w"> </span>$(AZDO_ORG_SERVICE_URL)<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="sd">            docker run `</span><span class="w">
-</span><span class="w">              </span>-e<span class="w"> </span>AZURE_DEVOPS_EXT_PAT=$(AZDO_PERSONAL_ACCESS_TOKEN)<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-e<span class="w"> </span>AZDO_PERSONAL_ACCESS_TOKEN=$(AZDO_PERSONAL_ACCESS_TOKEN)<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-e<span class="w"> </span>AZDO_ORG_SERVICE_URL=$(AZDO_ORG_SERVICE_URL)<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>--entrypoint<span class="w"> </span>/opt/microsoft/powershell/<span class="m">7</span>/pwsh<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-v<span class="w"> </span>$(System.DefaultWorkingDirectory)<span class="p">:</span>/src<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>--workdir<span class="w"> </span>/src<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>devcontainer<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-c<span class="w"> </span>Invoke-Pester<span class="w"> </span>-EnableExit<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Run tests</span><span class="w">
+</span><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">AZDO_PERSONAL_ACCESS_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">$(AZDO_PERSONAL_ACCESS_TOKEN)</span><span class="w">
+</span><span class="w">          </span><span class="nt">AZDO_ORG_SERVICE_URL</span><span class="p">:</span><span class="w"> </span><span class="l">$(AZDO_ORG_SERVICE_URL)</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="sd">            docker run `
+</span><span class="sd">              -e AZURE_DEVOPS_EXT_PAT=$(AZDO_PERSONAL_ACCESS_TOKEN) `
+</span><span class="sd">              -e AZDO_PERSONAL_ACCESS_TOKEN=$(AZDO_PERSONAL_ACCESS_TOKEN) `
+</span><span class="sd">              -e AZDO_ORG_SERVICE_URL=$(AZDO_ORG_SERVICE_URL) `
+</span><span class="sd">              --entrypoint /opt/microsoft/powershell/7/pwsh `
+</span><span class="sd">              -v $(System.DefaultWorkingDirectory):/src `
+</span><span class="sd">              --workdir /src `
+</span><span class="sd">              devcontainer `
+</span><span class="sd">              -c Invoke-Pester -EnableExit</span><span class="w">            
 </span></code></pre></div><h3 id="devcontainer-build-times">Devcontainer build times</h3>
 <p>Below we can see that we&rsquo;ve shaved off a few seconds, but nothing amazing.</p>
 <p><img src="https://eliises.github.io/images/dockerizing-devops/devcontainer-pipeline.png" alt="Devcontainer pipeline"></p>
 <h2 id="devcontainer-pipeline-with-caching">Devcontainer pipeline with caching</h2>
 <p>As a bonus, we can also cache our devcontainer image between runs to further reduce the time the builds take. Take a look at the YAML below:</p>
 <h5 id="azdodevcontainer-caching-pipelineymlhttpsgithubcomeliisesterraform-pester-devcontainer-exampleblobmasterazdodevcontainer-caching-pipelineyml"><a href="https://github.com/EliiseS/terraform-pester-devcontainer-example/blob/master/.azdo/devcontainer-caching-pipeline.yml">.azdo/devcontainer-caching-pipeline.yml</a></h5>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">    </span><span class="k">steps</span><span class="p">:</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span><span class="c"># Initialize caching</span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>Cache@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">key</span><span class="p">:</span><span class="w"> </span>docker-image<span class="w"> </span>|<span class="w"> </span>.devcontainer/<span class="cp">**</span><span class="w">
-</span><span class="w">          </span><span class="k">path</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;.dockercache&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">restoreKeys</span><span class="p">:</span><span class="w"> </span>docker-image<span class="w">
-</span><span class="w">          </span><span class="k">cacheHitVar</span><span class="p">:</span><span class="w"> </span>DOCKER_CACHE_HIT<span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Cache<span class="w"> </span>docker<span class="w"> </span>layers<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">Cache@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">docker-image | .devcontainer/**</span><span class="w">
+</span><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;.dockercache&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">restoreKeys</span><span class="p">:</span><span class="w"> </span><span class="l">docker-image</span><span class="w">
+</span><span class="w">          </span><span class="nt">cacheHitVar</span><span class="p">:</span><span class="w"> </span><span class="l">DOCKER_CACHE_HIT</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Cache docker layers</span><span class="w">
 </span><span class="w">
 </span><span class="w">      </span><span class="c"># Load the cached image if cache was found</span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Load<span class="w"> </span>cached<span class="w"> </span>devcontainer<span class="w"> </span>image<span class="w">
-</span><span class="w">        </span><span class="k">condition</span><span class="p">:</span><span class="w"> </span>eq(variables.DOCKER_CACHE_HIT<span class="p">,</span><span class="w"> </span><span class="s1">&#39;true&#39;</span>)<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span>docker<span class="w"> </span>load<span class="w"> </span>-i<span class="w"> </span>./.dockercache/devcontainer.tar<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Load cached devcontainer image</span><span class="w">
+</span><span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">eq(variables.DOCKER_CACHE_HIT, &#39;true&#39;)</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l">docker load -i ./.dockercache/devcontainer.tar</span><span class="w">
 </span><span class="w">
 </span><span class="w">      </span><span class="c"># Build the devcontainer</span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Build devcontainer&#39;</span><span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="sd">            # Create dockercache directory</span><span class="w">
-</span><span class="w">            </span>mkdir<span class="w"> </span>-p<span class="w"> </span>./.dockercache/<span class="w">
-</span><span class="w">            </span>docker<span class="w"> </span>build<span class="w"> </span>--cache-from<span class="w"> </span>devcontainer<span class="p">:</span>latest<span class="w"> </span>-f<span class="w"> </span>.devcontainer/Dockerfile<span class="w"> </span>-t<span class="w"> </span>devcontainer<span class="w"> </span>.<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Build devcontainer&#39;</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="sd">            # Create dockercache directory
+</span><span class="sd">            mkdir -p ./.dockercache/
+</span><span class="sd">            docker build --cache-from devcontainer:latest -f .devcontainer/Dockerfile -t devcontainer .</span><span class="w">            
 </span><span class="w">
 </span><span class="w">      </span><span class="c"># Cache the docker image file if build succeeded</span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Save<span class="w"> </span>devcontainer<span class="w"> </span>image<span class="w">
-</span><span class="w">        </span><span class="k">condition</span><span class="p">:</span><span class="w"> </span>and(succeeded()<span class="p">,</span><span class="w"> </span>ne(variables.DOCKER_CACHE_HIT<span class="p">,</span><span class="w"> </span><span class="s1">&#39;true&#39;</span>))<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span>docker<span class="w"> </span>image<span class="w"> </span>save<span class="w"> </span>-o<span class="w"> </span>./.dockercache/devcontainer.tar<span class="w"> </span>devcontainer<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Save devcontainer image</span><span class="w">
+</span><span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">and(succeeded(), ne(variables.DOCKER_CACHE_HIT, &#39;true&#39;))</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l">docker image save -o ./.dockercache/devcontainer.tar devcontainer</span><span class="w">
 </span><span class="w">
 </span><span class="w">      </span><span class="c"># Run checks in the devcontainer</span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Validate<span class="w"> </span>terraform<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="sd">            docker run `</span><span class="w">
-</span><span class="w">              </span>--entrypoint<span class="w"> </span>/opt/microsoft/powershell/<span class="m">7</span>/pwsh<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-v<span class="w"> </span>$(System.DefaultWorkingDirectory)<span class="p">:</span>/src<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>--workdir<span class="w"> </span>/src<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>devcontainer<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-c<span class="w"> </span><span class="s2">&#34;terraform init &amp;&amp; terraform validate &amp;&amp; tflint&#34;</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Validate terraform</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="sd">            docker run `
+</span><span class="sd">              --entrypoint /opt/microsoft/powershell/7/pwsh `
+</span><span class="sd">              -v $(System.DefaultWorkingDirectory):/src `
+</span><span class="sd">              --workdir /src `
+</span><span class="sd">              devcontainer `
+</span><span class="sd">              -c &#34;terraform init &amp;&amp; terraform validate &amp;&amp; tflint&#34;</span><span class="w">            
 </span><span class="w">
-</span><span class="w">      </span>- <span class="k">task</span><span class="p">:</span><span class="w"> </span>PowerShell@<span class="m">2</span><span class="w">
-</span><span class="w">        </span><span class="k">displayName</span><span class="p">:</span><span class="w"> </span>Run<span class="w"> </span>tests<span class="w">
-</span><span class="w">        </span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">AZDO_PERSONAL_ACCESS_TOKEN</span><span class="p">:</span><span class="w"> </span>$(AZDO_PERSONAL_ACCESS_TOKEN)<span class="w">
-</span><span class="w">          </span><span class="k">AZDO_ORG_SERVICE_URL</span><span class="p">:</span><span class="w"> </span>$(AZDO_ORG_SERVICE_URL)<span class="w">
-</span><span class="w">        </span><span class="k">inputs</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
-</span><span class="w">          </span><span class="k">script</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="sd">            docker run `</span><span class="w">
-</span><span class="w">              </span>-e<span class="w"> </span>AZURE_DEVOPS_EXT_PAT=$(AZDO_PERSONAL_ACCESS_TOKEN)<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-e<span class="w"> </span>AZDO_PERSONAL_ACCESS_TOKEN=$(AZDO_PERSONAL_ACCESS_TOKEN)<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-e<span class="w"> </span>AZDO_ORG_SERVICE_URL=$(AZDO_ORG_SERVICE_URL)<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>--entrypoint<span class="w"> </span>/opt/microsoft/powershell/<span class="m">7</span>/pwsh<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-v<span class="w"> </span>$(System.DefaultWorkingDirectory)<span class="p">:</span>/src<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>--workdir<span class="w"> </span>/src<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>devcontainer<span class="w"> </span>`<span class="w">
-</span><span class="w">              </span>-c<span class="w"> </span>Invoke-Pester<span class="w"> </span>-EnableExit<span class="w">
+</span><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">PowerShell@2</span><span class="w">
+</span><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Run tests</span><span class="w">
+</span><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">AZDO_PERSONAL_ACCESS_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">$(AZDO_PERSONAL_ACCESS_TOKEN)</span><span class="w">
+</span><span class="w">          </span><span class="nt">AZDO_ORG_SERVICE_URL</span><span class="p">:</span><span class="w"> </span><span class="l">$(AZDO_ORG_SERVICE_URL)</span><span class="w">
+</span><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">targetType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;inline&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="sd">            docker run `
+</span><span class="sd">              -e AZURE_DEVOPS_EXT_PAT=$(AZDO_PERSONAL_ACCESS_TOKEN) `
+</span><span class="sd">              -e AZDO_PERSONAL_ACCESS_TOKEN=$(AZDO_PERSONAL_ACCESS_TOKEN) `
+</span><span class="sd">              -e AZDO_ORG_SERVICE_URL=$(AZDO_ORG_SERVICE_URL) `
+</span><span class="sd">              --entrypoint /opt/microsoft/powershell/7/pwsh `
+</span><span class="sd">              -v $(System.DefaultWorkingDirectory):/src `
+</span><span class="sd">              --workdir /src `
+</span><span class="sd">              devcontainer `
+</span><span class="sd">              -c Invoke-Pester -EnableExit</span><span class="w">            
 </span></code></pre></div><h3 id="alternatives-to-caching">Alternatives to caching</h3>
 <p>An alternatives to caching is using a container registry to save your image, such as the <a href="https://docs.microsoft.com/en-us/azure/container-registry/container-registry-intro">azure container registry</a> or <a href="https://docs.docker.com/docker-hub/">docker hub</a>. In fact <a href="https://github.com/lawrencegripper/azbrowse">AzBrowze</a> is using docker hub for it&rsquo;s caching.</p>
 <h3 id="caching-build-times">Caching build times</h3>
@@ -522,7 +539,7 @@
 <p><img src="https://eliises.github.io/images/dockerizing-devops/all-pipelines.png" alt="All pipelines"></p>
 <h2 id="execute-commands-in-container-locally">Execute commands in container locally</h2>
 <p>For troubleshooting or verifying your commands will run in your container, you can also execute them in your local machine:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">## Build the devcontainer</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">## Build the devcontainer</span>
 docker build -t devcontainer -f ./.devcontainer/Dockerfile .
 <span class="c1">## Execute commands in the container</span>
 docker run <span class="sb">`</span>
@@ -1063,7 +1080,7 @@ docker run <span class="sb">`</span>
 
   
   <div class="copyright py-4">
-    <span>  2016 - 2020 &copy; | Theme <a href='https://github.com/EliiseS/AllinOne' target="_blank">AllinOne</a> </span>
+    <span>  2016 - 2022 &copy; | Theme <a href='https://github.com/EliiseS/AllinOne' target="_blank">AllinOne</a> </span>
   </div>
   
 
@@ -1108,23 +1125,6 @@ docker run <span class="sb">`</span>
           renderMathInElement(document.body);
       });
   </script>
-
-
-
-
-
-
-  
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-173967641-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
